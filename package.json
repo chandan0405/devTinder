@@ -1,0 +1,15 @@
+{
+  "name": "devtinder-backend",
+  "version": "1.0.0",
+  "description": "This is backend project for the devTinder",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "author": "chandan kumar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
