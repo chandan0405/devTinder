@@ -20,20 +20,19 @@ const express = require("express");
 const app = express();
 const connectDb = require("./config/database");
 const User = require("./models/user");
+app.use(express.json());
 
 
 app.post("/signup", async (req, res) => {
-  const newUserObj = {
-    firstName: "jakarta",
-    lastName: "julieta",
-    emailId: "jakarta@gmail.com",
-    password: "jakarta@1234",
-    age: 34,
-    gender: "Female",
+  const data = req.body;
+  try {
+    const user = new User(data);
+    await user.save();
+    res.status(201).send(user);
+  } catch (error) {
+    console.error("Error while signing up:", error);
+    res.status(500).send("Internal server error: " + error.message);
   }
-  const user = new User(newUserObj);
-  await user.save();
-  res.send("sign up successfully")
 
 })
 
