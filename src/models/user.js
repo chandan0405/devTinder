@@ -15,7 +15,7 @@ const userSchema = new Schema({
     unique: true
   },
   password: {
-    type: String, required: true, minlength: 8, maxlength: 50,
+    type: String, required: true, minlength: 8,
     validate: {
       validator: function (value) {
         return validator.isStrongPassword(value);
