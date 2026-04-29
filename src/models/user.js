@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const { Schema } = mongoose;
 const validator = require("validator");
+
 const userSchema = new Schema({
   firstName: { type: String, required: true, minlength: 3, maxlength: 50 },
   lastName: { type: String, minlength: 3, maxlength: 50 },
@@ -57,15 +58,9 @@ const userSchema = new Schema({
 
 userSchema.methods.getJWT = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET_KEY, { expiresIn: '7d' });
+  const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET_KEY, { expiresIn: "7d" });
   return token;
 }
-
-
-
-
-
-
 
 
 const User = mongoose.model("User", userSchema);
