@@ -27,7 +27,15 @@ const userSchema = new Schema({
     }
   },
   age: { type: Number, required: true, min: 18, max: 50 },
-  gender: { type: String, required: true, enum: ["Male", "Female", "Other"], default: "Other" },
+  gender: {
+    type: String,
+    required: true,
+    enum: {
+      values: ["Male", "Female", "Other"],
+      message: `{VALUE} is not supported data type`
+    },
+    default: "Male"
+  },
   profileUrl: { type: String, required: true, default: "https://via.placeholder.com/150" },
   bio: { type: String, required: true, default: "No bio yet" },
   location: { type: String, required: true },

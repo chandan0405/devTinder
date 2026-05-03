@@ -23,11 +23,13 @@ app.use(cookieParser());
 const connectDb = require("./config/database");
 const authRouter = require("./routers/auth");
 const profileRouter = require("./routers/profile");
+const connectionRequest = require("./routers/connectionRequest");
 app.use(express.json());
 
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
+app.use('/', connectionRequest)
 
 
 
