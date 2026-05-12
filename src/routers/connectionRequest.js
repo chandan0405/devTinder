@@ -63,5 +63,32 @@ connectionRequest.post("/sendconnection/:status/:userId", authUser, async (req, 
 
 })
 
+connectionRequest.post("/request/review/:status/:requestId", authUser, async (req, res) => {
+  const loggedInUser = req.user;
+  const { status, requestId } = req.params;
+  const allowedStatus = ["accepted", "rejected"];
+
+  if (!allowedStatus.includes(status)) {
+    res.status(404).json({ message: "Operation not allowed" })
+  }
+  try {
+    const isValidConnection = await ConnectionRequestModel.findOne({
+      _id: requestId,
+      toUserId: loggedInUser._id,
+      status: "interested"
+    })
+    console.log("isValidConnection", isValidConnection)
+    if (!isValidConnection) {
+      throw new Error("Not a valid connection");
+    }
+    isValidConnection.status = status;
+    const data = await isValidConnection.save();
+
+    res.status(200).json({ message: " Request has been accepted", data: data })
+  } catch (error) {
+    res.status(404).send("Something went wrong")
+  }
+})
+
 
 module.exports = connectionRequest

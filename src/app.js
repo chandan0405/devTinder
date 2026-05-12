@@ -24,12 +24,15 @@ const connectDb = require("./config/database");
 const authRouter = require("./routers/auth");
 const profileRouter = require("./routers/profile");
 const connectionRequest = require("./routers/connectionRequest");
+const userRouter = require("./routers/user");
 app.use(express.json());
 
 
 app.use("/", authRouter);
 app.use("/", profileRouter);
-app.use('/', connectionRequest)
+app.use('/', connectionRequest);
+app.use('/', userRouter)
+
 
 
 
